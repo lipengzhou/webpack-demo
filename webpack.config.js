@@ -13,7 +13,7 @@ module.exports = {
   /**
    * 入口
    */
-  entry: './src/index.js',
+  entry: './src/index.tsx',
 
   // 多入口构建
   // entry: {
@@ -27,7 +27,8 @@ module.exports = {
     /**
      * 要托管的静态资源目录
      */
-    static: './dist'
+    static: './dist',
+    hot: true
   },
 
   plugins: [
@@ -35,6 +36,10 @@ module.exports = {
       template: './public/index.html'
     })
   ],
+
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js']
+  },
 
   /**
    * 出口
@@ -57,6 +62,11 @@ module.exports = {
 
   module: {
     rules: [
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
+      },
       {
         // 处理以 .css 结尾的文件
         test: /\.css$/i,
